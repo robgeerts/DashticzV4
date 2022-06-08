@@ -5,8 +5,8 @@
     >
         <!--begin::Icon-->
         <span style="width: 50px;">
-            <i v-if="item.Image === 'Light'" class="fa-solid fa-lightbulb" style="font-size:35px;"></i>
-            <i v-else-if="item.Image === 'Fan'" class="fa-solid fa-fan" style="font-size:35px;"></i>
+            <i v-if="item.Type==='Temp + Humidity'" class="fa-solid fa-temperature-high" style="font-size:35px;"></i>
+            <i v-else-if="item.SubType==='SetPoint'" class="fa-solid fa-temperature-arrow-up" style="font-size:35px;"></i>
           </span>
         <!--end::Icon-->
 
@@ -22,9 +22,8 @@
         <!--end::Title-->
 
         <!--begin::Lable-->
-        <span v-if="item.Data==='On'" class="text-deviceon fw-bolder py-1">{{ item.Data }}</span>
-        <span v-else-if="item.Data==='Off'" class="text-deviceoff fw-bolder py-1">{{ item.Data }}</span>
-        <span v-else class="text-default fw-bolder py-1">{{ item.Data }}</span>
+        <span v-if="item.Type==='Temp + Humidity'" class="fw-bolder py-1">{{ item.Data }}</span>
+        <span v-else-if="item.SubType==='SetPoint'" class="fw-bolder py-1">{{ item.Data }}</span>
         <!--end::Lable-->
     </div>
 
@@ -34,7 +33,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "switch-block",
+  name: "energy-block",
   props: ['item'],
 });
 </script>
