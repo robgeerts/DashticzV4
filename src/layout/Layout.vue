@@ -25,14 +25,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, watch, nextTick } from "vue";
+import { defineComponent, onMounted , watch, nextTick } from "vue";
 import { useStore } from "vuex";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import HtmlClass from "@/core/services/LayoutService";
 import KTLoader from "@/components/Loader.vue";
-import KTCreateApp from "@/components/modals/wizards/CreateAppModal.vue";
-import KTInviteFriendsModal from "@/components/modals/general/InviteFriendsModal.vue";
-import KTDrawerMessenger from "@/layout/extras/MessengerDrawer.vue";
 import { Actions } from "@/store/enums/StoreEnums";
 import { MenuComponent } from "@/assets/ts/components";
 import { removeModalBackdrop } from "@/core/helpers/dom";
@@ -50,21 +47,12 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const route = useRoute();
-    const router = useRouter();
 
     // show page loading
     store.dispatch(Actions.ADD_BODY_CLASSNAME, "page-loading");
 
     // initialize html element classes
     HtmlClass.init();
-
-    const pageTitle = computed(() => {
-      return store.getters.pageTitle;
-    });
-
-    const breadcrumbs = computed(() => {
-      return store.getters.pageBreadcrumbPath;
-    });
 
     onMounted(() => {
       nextTick(() => {
@@ -82,11 +70,6 @@ export default defineComponent({
       () => route.path,
       () => {
         MenuComponent.hideDropdowns(undefined);
-
-        // check if current user is authenticated
-        if (!store.getters.isUserAuthenticated) {
-          router.push({ name: "sign-in" });
-        }
 
         nextTick(() => {
           reinitializeComponents();

@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue";
+import {defineComponent, ref} from "vue";
 import Switch from "@/components/Switch.vue";
 
 export default defineComponent({

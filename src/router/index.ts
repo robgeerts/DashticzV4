@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import store from "@/store";
-import { Mutations, Actions } from "@/store/enums/StoreEnums";
+import { Mutations } from "@/store/enums/StoreEnums";
 
 const routes: Array<RouteRecordRaw> = [
   {
