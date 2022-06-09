@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="row mb-5">
+  <div class="row mb-5">
       <div class="col-lg-12">
           <div class="card">
               <div class="card-header border-0">
@@ -77,6 +77,7 @@
         </div>
     </div>
     <div class="col-lg-4">
+      <!--
         <div class="card mb-5">
             <div class="card-header border-0">
                 <h3 class="card-title fw-bolder text-dark">Electriciteit</h3>
@@ -91,14 +92,13 @@
                     >
                         <i class="fa-solid fa-pencil fs-1"></i>
                     </button>
-                    <Dropdown1></Dropdown1>
                 </div>
             </div>
             <div class="card-body p-0 d-flex flex-column">
-                <Chart chart-height="100"
-                       chart-color="primary"></Chart>
+                <Chart chart-height="100" chart-color="primary"></Chart>
             </div>
         </div>
+        -->
           <div class="card">
               <div class="card-header border-0">
                   <h3 class="card-title fw-bolder text-dark">Gas/Water/Licht</h3>
@@ -135,7 +135,6 @@ import Energy from "@/components/types/Energy.vue";
 import Temperature from "@/components/types/Temperature.vue";
 import Chart from "@/components/types/Chart.vue";
 import Icon from "@/components/includes/Icon.vue";
-import Dropdown1 from "@/components/dropdown/Dropdown1.vue";
 
 export default defineComponent({
   name: "main-dashboard",
@@ -143,9 +142,8 @@ export default defineComponent({
     Switch,
     Energy,
     Temperature,
-      Chart,
+    //Chart,
     Icon,
-      Dropdown1,
   },
   setup() {
         const mode=''; //edit
@@ -157,30 +155,25 @@ export default defineComponent({
         });
 
         getDevices();
+        setInterval(getDevices, 2000);
 
         function getDevices() {
-            axios.get('http://62.195.183.190:1407/json.htm?type=devices&filter=all&used=true&favorite=0&order=Name&plan=0').then(response => {
+            axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=devices&filter=all&used=true&favorite=0&order=Name&plan=0').then(response => {
 
                 for(var r in response.data.result) {
 
                     var device = response.data.result[r];
                     items.all[r]=device;
 
-
                     if(device.Favorite==1) {
-                        if (device.Type == 'Light/Switch' || device.Type == 'Lighting 1' || device.Type == 'Lighting 2') {
+                        if (device.Type == 'Color Switch' || device.Type == 'Light/Switch' || device.Type == 'Lighting 1' || device.Type == 'Lighting 2') {
                             items.switches[r] = device;
                         } else if (device.Type == 'RFXMeter' || device.Type == 'P1 Smart Meter') {
+                            device.Data = device.Data.split(';');
                             items.power[r] = device;
                         } else {
                             items.others[r] = device;
-                            console.log(device.Name);
-                            console.log(device);
                         }
-                    }
-                    else {
-                        console.log(device.Name);
-                        console.log(device);
                     }
                 }
 
