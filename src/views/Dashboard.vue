@@ -163,7 +163,7 @@ export default defineComponent({
                 for(var r in response.data.result) {
 
                     var device = response.data.result[r];
-                    items.all[r]=device;
+
 
                     if(device.Favorite==1) {
                         if (device.Type == 'Color Switch' || device.Type == 'Light/Switch' || device.Type == 'Lighting 1' || device.Type == 'Lighting 2') {
@@ -173,7 +173,12 @@ export default defineComponent({
                             items.power[r] = device;
                         } else {
                             items.others[r] = device;
+                            console.log(device.Name);
+                            console.log(device);
                         }
+                    }
+                    else {
+                      items.all[r]=device;
                     }
                 }
 

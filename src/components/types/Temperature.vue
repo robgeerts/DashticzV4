@@ -11,6 +11,7 @@
         </div>
 
         <span v-if="item.Type==='Temp + Humidity'" class="fw-bolder py-1">{{ item.Data }}</span>
+        <span v-else-if="item.Type==='Temp + Humidity + Baro'" class="fw-bolder py-1">{{ item.Data }}</span>
         <span v-else-if="item.SubType==='SetPoint'" class="fw-bolder py-1">{{ item.Data }}</span>
       </button>
     </div>

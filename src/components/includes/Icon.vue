@@ -16,6 +16,7 @@
             <i v-else-if="item.SubType==='Gas'" class="fa-solid fa-faucet-drip fs-1"></i>
             <i v-else-if="item.HardwareName === 'Smart Gateways Watermeter Gateway'" class="fa-solid fa-fire-flame-simple fs-1"></i>
             <i v-else-if="item.Type==='Temp + Humidity'" class="fa-solid fa-temperature-high fs-1"></i>
+            <i v-else-if="item.Type==='Temp + Humidity + Baro'" class="fa-solid fa-temperature-high fs-1"></i>
             <i v-else-if="item.SubType==='SetPoint'" class="fa-solid fa-temperature-arrow-up fs-1"></i>
         </span>
     </div>
