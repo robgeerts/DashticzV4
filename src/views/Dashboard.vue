@@ -29,11 +29,12 @@
                 <h3 class="card-title fw-bolder text-dark">Schakelaars</h3>
             </div>
             <div class="card-body pt-0">
-                <draggable class="dragArea list-group w-full" @end="doneMoving" ghost-class="ghost" :list="list">
+                <draggable id="col1" class="dragArea list-group w-full" @end="doneMoving">
                     <div
                         class="list-group-item p-0 border-0"
                         v-for="item in items.switches"
                         :key="item.Name"
+                        :group="{ name: 'blocks', pull: true, put: true }"
                         :id="`block_${item.idx}`"
                     >
                         <Switch :item=item :mode=mode></Switch>
@@ -70,10 +71,11 @@
                   <h3 class="card-title fw-bolder text-dark">Gas/Water/Licht</h3>
               </div>
             <div class="card-body pt-0">
-                <draggable class="dragArea list-group w-full" @end="doneMoving" @log="logMove" ghost-class="ghost" :list="list">
+                <draggable id="col2" class="dragArea list-group w-full" @end="doneMoving">
                     <div
                         class="list-group-item p-0 border-0"
                         v-for="item in items.power"
+                        :group="{ name: 'blocks', pull: true, put: true }"
                         :key="item.Name"
                         :id="`block_${item.idx}`"
                     >
@@ -89,10 +91,11 @@
                   <h3 class="card-title fw-bolder text-dark">Overige</h3>
               </div>
               <div class="card-body pt-0">
-                  <draggable class="dragArea list-group w-full" @end="doneMoving" @log="logMove" ghost-class="ghost" :list="list">
+                  <draggable id="col3" class="dragArea list-group w-full" @end="doneMoving">
                       <div
                           class="list-group-item p-0 border-0"
                           v-for="item in items.others"
+                          :group="{ name: 'blocks', pull: true, put: true }"
                           :key="item.Name"
                           :id="`block_${item.idx}`"
                       >
@@ -140,7 +143,10 @@ export default defineComponent({
 
       const doneMoving = (event) => {
           console.log('doneMoving');
-          console.log(event);
+          console.log('newDraggableIndex = '+event.oldDraggableIndex)
+          console.log('oldDraggableIndex = '+event.newDraggableIndex);
+          console.log('oldIndex = '+event.oldIndex)
+          console.log('newIndex = '+event.newIndex);
       }
 
         getDevices(true);

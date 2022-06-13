@@ -35,7 +35,7 @@ export default defineComponent({
     const switchBTN = (id,data) => {
       let cmd='On';
       if(data=='On') cmd = 'Off';
-      axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=command&param=switchlight&idx='+id+'&switchcmd='+cmd+'&level=0&passcode=');
+      //axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=command&param=switchlight&idx='+id+'&switchcmd='+cmd+'&level=0&passcode=');
     }
     return {
         switchBTN
