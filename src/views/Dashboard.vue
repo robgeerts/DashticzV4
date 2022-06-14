@@ -7,15 +7,11 @@
           <div class="card">
               <div class="card-header border-0">
                   <h3 class="card-title fw-bolder text-dark">Dashticz v4</h3>
-                  <button
-                      type="button"
-                      class="btn btn-sm btn-active-color-primary pe-0"
-                      data-bs-toggle="modal"
-                      :data-bs-target="`#add_blocks`"
-                  >
-                      <i class="fa-solid fa-plus fs-1"
-                         data-bs-toggle="modal"
-                         :data-bs-target="`#add_blocks`"></i>
+                  <button v-if="mode=='view'" type="button" class="btn btn-sm btn-active-color-primary pe-0" @click="switchMode()">
+                      <i class="fa-solid fa-pencil fs-1"></i>
+                  </button>
+                  <button v-if="mode=='edit'" type="button" class="btn btn-sm btn-active-color-primary pe-0" @click="switchMode()">
+                      <i class="fa-solid fa-xmark fs-1"></i>
                   </button>
               </div>
           </div>
@@ -27,6 +23,17 @@
         <div class="card mb-5">
             <div class="card-header border-0">
                 <h3 class="card-title fw-bolder text-dark">Schakelaars</h3>
+                <div class="card-toolbar">
+                    <button
+                        v-if="mode=='edit'"
+                        type="button"
+                        class="btn btn-sm btn-active-color-primary pe-0"
+                        data-bs-toggle="modal"
+                        :data-bs-target="`#add_blocks`"
+                    >
+                        <i class="fa-solid fa-plus fs-1"></i>
+                    </button>
+                </div>
             </div>
             <div class="card-body pt-0">
                 <draggable id="col1" class="dragArea list-group w-full" @end="doneMoving">
@@ -44,31 +51,39 @@
         </div>
     </div>
     <div class="col-lg-4">
-      <!--
         <div class="card mb-5">
             <div class="card-header border-0">
                 <h3 class="card-title fw-bolder text-dark">Electriciteit</h3>
-
                 <div class="card-toolbar">
                     <button
+                        v-if="mode=='edit'"
                         type="button"
-                        class="btn btn-sm btn-icon btn-active-light-primary"
-                        data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end"
-                        data-kt-menu-flip="top-end"
+                        class="btn btn-sm btn-active-color-primary pe-0"
+                        data-bs-toggle="modal"
+                        :data-bs-target="`#add_blocks`"
                     >
-                        <i class="fa-solid fa-pencil fs-1"></i>
+                        <i class="fa-solid fa-plus fs-1"></i>
                     </button>
                 </div>
             </div>
             <div class="card-body p-0 d-flex flex-column">
-                <Chart chart-height="100" chart-color="primary"></Chart>
+                <Chart chart-height="100" chart-color="primary" :mode=mode></Chart>
             </div>
         </div>
-        -->
           <div class="card">
               <div class="card-header border-0">
                   <h3 class="card-title fw-bolder text-dark">Gas/Water/Licht</h3>
+                  <div class="card-toolbar">
+                      <button
+                          v-if="mode=='edit'"
+                          type="button"
+                          class="btn btn-sm btn-active-color-primary pe-0"
+                          data-bs-toggle="modal"
+                          :data-bs-target="`#add_blocks`"
+                      >
+                          <i class="fa-solid fa-plus fs-1"></i>
+                      </button>
+                  </div>
               </div>
             <div class="card-body pt-0">
                 <draggable id="col2" class="dragArea list-group w-full" @end="doneMoving">
@@ -89,6 +104,17 @@
           <div class="card mb-5">
               <div class="card-header border-0">
                   <h3 class="card-title fw-bolder text-dark">Overige</h3>
+                  <div class="card-toolbar">
+                      <button
+                          v-if="mode=='edit'"
+                          type="button"
+                          class="btn btn-sm btn-active-color-primary pe-0"
+                          data-bs-toggle="modal"
+                          :data-bs-target="`#add_blocks`"
+                      >
+                          <i class="fa-solid fa-plus fs-1"></i>
+                      </button>
+                  </div>
               </div>
               <div class="card-body pt-0">
                   <draggable id="col3" class="dragArea list-group w-full" @end="doneMoving">
@@ -126,14 +152,24 @@ export default defineComponent({
     Switch,
     Energy,
     Temperature,
-    //Chart,
-      Addblock,
-      draggable: VueDraggableNext,
+    Chart,
+    Addblock,
+    draggable: VueDraggableNext,
+  },
+    data(){
+      return {
+          mode:'view'
+      }
+    },
+  methods: {
+    switchMode() {
+        if(this.mode=='view') this.mode='edit';
+        else this.mode='view';
+    }
   },
   setup() {
 
       const dragging=false;
-      const mode=''; //edit
       const items = reactive({
           switches: {},
           power: {},
@@ -149,18 +185,16 @@ export default defineComponent({
           console.log('newIndex = '+event.newIndex);
       }
 
-        getDevices(true);
-        //setInterval(getDevices, 2000);
+      getDevices(true);
+      //setInterval(getDevices, 2000);
 
-        function getDevices(initial) {
+      function getDevices(initial) {
             if(typeof(initial)=='undefined') initial=false;
             axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=devices&filter=all&used=true&favorite=0&order=Name&plan=0').then(response => {
 
                 for(var r in response.data.result) {
 
                     var device = response.data.result[r];
-
-
                     if(device.Favorite==1) {
                         if (device.Type == 'Color Switch' || device.Type == 'Light/Switch' || device.Type == 'Lighting 1' || device.Type == 'Lighting 2') {
                             items.switches[r] = device;
@@ -177,11 +211,11 @@ export default defineComponent({
                 }
 
             })
-        }
+      }
 
-        return {
-          items,mode,dragging,doneMoving
-        };
+      return {
+          items,dragging,doneMoving
+      };
 
     }
 });

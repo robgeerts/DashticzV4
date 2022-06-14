@@ -6,9 +6,13 @@
             <div class="col">
                 <div class="d-flex align-items-center me-2">
                     <div class="symbol symbol-50px me-3">
-                        <div class="symbol-label bg-lighten">
+                        <div v-if="mode === 'edit'" class="symbol-label" @click="deleteBlock(4)">
+                            <i class="fa-solid fa-xmark text-danger fs-1"></i>
+                        </div>
+                        <div v-else class="symbol-label">
                             <i class="fa-solid fa-plug fs-1"></i>
                         </div>
+
                     </div>
                     <div>
                         <div class="fs-4 text-dark fw-bolder">231 Watt</div>
@@ -20,7 +24,10 @@
             <div class="col">
                 <div class="d-flex align-items-center me-2">
                     <div class="symbol symbol-50px me-3">
-                        <div class="symbol-label bg-lighten">
+                        <div v-if="mode === 'edit'" class="symbol-label" @click="deleteBlock(3)">
+                            <i class="fa-solid fa-xmark text-danger fs-1"></i>
+                        </div>
+                        <div v-else class="symbol-label">
                             <i class="fa-solid fa-plug fs-1"></i>
                         </div>
                     </div>
@@ -37,7 +44,10 @@
             <div class="col">
                 <div class="d-flex align-items-center me-2">
                     <div class="symbol symbol-50px me-3">
-                        <div class="symbol-label bg-lighten">
+                        <div v-if="mode === 'edit'" class="symbol-label" @click="deleteBlock(1)">
+                            <i class="fa-solid fa-xmark text-danger fs-1"></i>
+                        </div>
+                        <div v-else class="symbol-label">
                             <i class="fa-solid fa-solar-panel fs-1"></i>
                         </div>
                     </div>
@@ -51,7 +61,10 @@
             <div class="col">
                 <div class="d-flex align-items-center me-2">
                     <div class="symbol symbol-50px me-3">
-                        <div class="symbol-label bg-lighten">
+                        <div v-if="mode === 'edit'" class="symbol-label" @click="deleteBlock(2)">
+                            <i class="fa-solid fa-xmark text-danger fs-1"></i>
+                        </div>
+                        <div v-else class="symbol-label">
                             <i class="fa-solid fa-solar-panel fs-1"></i>
                         </div>
                     </div>
@@ -80,13 +93,18 @@ import { getCSSVariableValue } from "@/assets/ts/_utils";
 
 export default defineComponent({
     name: "widget-1",
-    props: {
-        chartColor: String,
-        chartHeight: String,
+    props: [
+        'mode',
+        'chartColor',
+        'chartHeight'
+    ],
+    methods: {
+        deleteBlock(id){
+            alert(id);
+        }
     },
     setup(props) {
         const color = ref(props.chartColor);
-
         const labelColor = getCSSVariableValue("--bs-" + "gray-800");
         const strokeColor = getCSSVariableValue("--bs-" + "gray-300");
         const baseColor = getCSSVariableValue("--bs-" + color.value);

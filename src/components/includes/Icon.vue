@@ -1,9 +1,9 @@
 <template>
-    <div class="symbol symbol-45px w-40px me-5">
-        <span v-if="mode === 'edit'" class="symbol-label bg-light-danger">
-            <a href="/"><i class="fa-solid fa-xmark text-danger fs-1"></i></a>
+    <div class="symbol symbol-45px w-40px me-3">
+        <span v-if="mode === 'edit'" class="symbol-label" @click="deleteBlock(item.idx)">
+            <i class="fa-solid fa-xmark text-danger fs-1"></i>
         </span>
-        <span v-else class="symbol-label bg-lighten">
+        <span v-else class="symbol-label">
             <i v-if="item.Image === 'Light'" class="fa-solid fa-lightbulb fs-1"></i>
             <i v-else-if="item.Image === 'Fan'" class="fa-solid fa-fan fs-1"></i>
             <i v-else-if="item.Image === 'WallSocket'" class="fa-solid fa-plug fs-1"></i>
@@ -29,5 +29,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
     name: "icon-block",
     props: ['item','mode'],
+    methods: {
+        deleteBlock(id){
+            alert(id);
+        }
+    }
 });
 </script>

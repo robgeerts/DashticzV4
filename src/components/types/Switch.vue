@@ -1,7 +1,7 @@
 <template>
 
     <div class="d-grid">
-      <button type="button" @click="switchBTN(item.idx,item.Data)" class="btn d-flex btn-light text-start rounded mb-5">
+      <button type="button" @click="switchBTN(item.idx,item.Data)" class="btn d-flex btn-light text-start rounded mb-3">
 
           <Icon :item=item :mode=mode></Icon>
 
@@ -29,17 +29,15 @@ export default defineComponent({
     Icon,
   },
   props: ['item','mode'],
-
-  setup() {
-
-    const switchBTN = (id,data) => {
-      let cmd='On';
-      if(data=='On') cmd = 'Off';
-      //axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=command&param=switchlight&idx='+id+'&switchcmd='+cmd+'&level=0&passcode=');
+    methods: {
+        switchBTN (id,data){
+            if(this.mode!=='edit') {
+                let cmd = 'On';
+                if (data == 'On') cmd = 'Off';
+                alert(cmd);
+                //axios.get(process.env.VUE_APP_DOMOTICZ_URL+'/json.htm?type=command&param=switchlight&idx='+id+'&switchcmd='+cmd+'&level=0&passcode=');
+            }
+        }
     }
-    return {
-        switchBTN
-    }
-  }
 });
 </script>

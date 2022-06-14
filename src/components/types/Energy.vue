@@ -1,7 +1,7 @@
 <template>
 
     <div class="d-grid">
-      <button type="button" class="btn d-flex btn-light text-start rounded mb-5">
+      <button type="button" class="btn d-flex btn-light text-start rounded mb-3">
 
         <Icon :item=item :mode=mode></Icon>
 
