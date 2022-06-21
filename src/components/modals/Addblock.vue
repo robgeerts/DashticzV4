@@ -17,16 +17,16 @@
                     </div>
 
                     <div style="max-height:270px;padding-right:10px;overflow:auto">
-                        <template v-for="(item, index) in items.all" :key="index">
-                            <div class="d-grid" v-if="item">
-                                <button type="button" @click="addBlock(index)" class="btn d-flex btn-light text-start rounded mb-5">
-                                    <Icon :item=item></Icon>
+                        <template v-for="item in items.all" :key="item">
+                            <div class="d-grid">
+                                <button type="button" @click="addBlock(item)" class="btn d-flex btn-light text-start rounded mb-5">
+                                    <Icon :item=allitems[item] :mode='view'></Icon>
                                     <div class="flex-grow-1 me-2">
-                                        <span class="fw-bolder text-gray-800 fs-6">{{ allitems[item.idx].Name }}</span>
-                                        <span v-if="item.SubType==='Energy'" class="text-muted fw-bold d-block">{{ allitems[item.idx].Usage }}</span>
-                                        <span v-else-if="item.SubType==='Gas'" class="text-muted fw-bold d-block">{{ allitems[item.idx].CounterToday }}</span>
-                                        <span v-else-if="item.SubType==='RFXMeter counter'" class="text-muted fw-bold d-block">{{ allitems[item.idx].CounterToday }}</span>
-                                        <span v-else class="text-muted fw-bold d-block">{{ allitems[item.idx].Data }}</span>
+                                        <span class="fw-bolder text-gray-800 fs-6">{{ allitems[item].Name }}</span>
+                                        <span v-if="item.SubType==='Energy'" class="text-muted fw-bold d-block">{{ allitems[item].Usage }}</span>
+                                        <span v-else-if="item.SubType==='Gas'" class="text-muted fw-bold d-block">{{ allitems[item].CounterToday }}</span>
+                                        <span v-else-if="item.SubType==='RFXMeter counter'" class="text-muted fw-bold d-block">{{ allitems[item].CounterToday }}</span>
+                                        <span v-else class="text-muted fw-bold d-block">{{ allitems[item].Data }}</span>
                                     </div>
                                 </button>
                             </div>

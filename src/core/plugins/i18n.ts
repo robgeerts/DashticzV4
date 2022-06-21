@@ -2,10 +2,14 @@ import { createI18n } from "vue-i18n/index";
 
 const messages = {
   en: {
-    hello: "Hello",
+    Switches: "Switches",
+    PowerAndGas: "Gas/Water/Power",
+    Others: "Others",
   },
   nl: {
-    hello: "Hallo",
+    Switches: "Schakelaars",
+    PowerAndGas: "Gas/Water/Licht",
+    Others: "Overige",
   },
 };
 
